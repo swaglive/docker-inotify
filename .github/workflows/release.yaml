@@ -59,6 +59,7 @@ jobs:
     needs:
     - build-docker
 
+    steps:
     - name: Setup Environment - Set variable `check-if-prelease`
       id: check-if-prelease
       uses: actions-ecosystem/action-regex-match@v2
