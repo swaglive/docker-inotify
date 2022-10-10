@@ -2,7 +2,6 @@
   * Supports
     * Github Registry
     * Docker Hub (TODO)
-    * Google Artifact Registry (TODO)
 * Utilizes docker layer caching with Github Container Registry
 * Creates Github Release on tag push based on semver
 
