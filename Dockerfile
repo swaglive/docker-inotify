@@ -6,6 +6,7 @@ FROM        ${base} as build
 
 ARG         version=
 ARG         repo=
+ARG         arch=amd64
 
 RUN         apk add --no-cache --virtual .build-deps \
                 build-base && \
