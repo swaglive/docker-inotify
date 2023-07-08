@@ -13,7 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: []
+        version:
+        - ""
+        include:
+        - version: ""
+          latest: true
 
     steps:
     - name: Checkout
