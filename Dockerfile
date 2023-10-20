@@ -7,7 +7,6 @@ FROM        ${base} as build
 ARG         repo=
 ARG         version=
 ARG         download_url=${version:+https://github.com/${repo}/archive/refs/tags/v${version}.tar.gz}
-ARG         arch=amd64
 
 RUN         apk add --no-cache --virtual .build-deps \
                 build-base && \
