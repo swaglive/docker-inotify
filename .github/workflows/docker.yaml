@@ -11,6 +11,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+    
+    env:
+      PLATFORMS: linux/amd64,linux/arm64
 
     strategy:
       fail-fast: false
@@ -68,8 +71,9 @@ jobs:
         flavor: |-
           latest=${{ !!matrix.latest }}
         tags: |-
-          type=semver,pattern={{major}}.{{minor}},value=${{ matrix.version }}
-          type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ matrix.version }}
+          type=raw,value=${{ matrix.version || 'latest' }},enabled=${{ !matrix.version }}
+          type=semver,pattern={{major}}.{{minor}},value=${{ matrix.version }},enabled=${{ !!matrix.version }}
+          type=semver,pattern={{major}}.{{minor}}.{{patch}},value=${{ matrix.version }},enabled=${{ !!matrix.version }}
 
     - name: Build
       uses: docker/build-push-action@v5.0.0
@@ -79,7 +83,7 @@ jobs:
         build-args: |
           version=${{ matrix.version }}
         push: true
-        platforms: ${{ steps.qemu.outputs.platforms }}
+        platforms: ${{ matrix.platforms || env.PLATFORMS || 'linux/amd64' }}
         labels: ${{ steps.meta.outputs.labels }}
         tags: ${{ steps.meta.outputs.tags }}
         cache-from: type=gha
